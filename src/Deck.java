@@ -38,19 +38,26 @@ public class Deck {
      * @param values is an array containing all of the card point values.
      */
     public Deck(String[] ranks, String[] suits, int[] values) {
+        // instantiate our cards instance variable
         cards = new ArrayList<Card>();
+        //loop through ranks
         for (int j = 0; j < ranks.length; j++) {
+            //loop through the suits
             for (String suitString : suits) {
+                //add each card to the ArrayList
                 cards.add(new Card(ranks[j], suitString, values[j]));
             }
         }
-        /**
-         * Determines if this deck is empty (no undealt cards).
-         *
-         * @return true if this deck is empty, false otherwise.
-         */
+        //initialize the size variable
+        this.size = cards.size();
+        shuffle();
+    } //close constructor
+    
+    //copy stuff back
     public boolean isEmpty() {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+        
+        return this.size == 0;
     }
 
     /**
@@ -60,6 +67,7 @@ public class Deck {
      */
     public int size() {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+        return size;
     }
 
     /**
@@ -68,6 +76,21 @@ public class Deck {
      */
     public void shuffle() {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+        //make a temp array of the same length
+        //save the midpoint (mid) for easy reference
+        //unshuffled int that will go up by two
+        //make a counter (k) that will go up by one
+        //loop k from 0 -> mid
+            //copy from original array at k to new array
+                Card temp;
+                for(int k = cards.size() - 1; k > 0; k--){
+                    int pos = (int)(Math.random() * (k + 1));
+                    temp = cards.get(pos);
+                    cards.set(pos, cards.get(k));
+                    cards.set(k, temp);
+                    
+                }
+            
     }
 
     /**
@@ -79,6 +102,10 @@ public class Deck {
     public Card deal() {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
         // IS EMPTY if so return null
+        if(size == 0){
+            return null;
+        }
+        //if it's not empty...
         size--;
         Card c = cards.get(size);
         return c;
